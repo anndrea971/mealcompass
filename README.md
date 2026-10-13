@@ -6,8 +6,4 @@ Collections: **users**, **recipes**, **meal plans**, **grocery lists** – full 
 - API docs: `/api-docs`
 - Live site: https://mealcompass.onrender.com/api-docs
 
-## Run locally
-1. `npm install`
-2. Create a `.env` file (see `.env.example`)
-3. `npm start`
-4. `npm test` runs the Jest tests
+
