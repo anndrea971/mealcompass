@@ -2,7 +2,7 @@
   "openapi": "3.0.3",
   "info": {
     "title": "Meal Compass API",
-    "version": "2.0.0",
+    "version": "3.0.0",
     "description": "REST API for planning weekly meals: users, recipes, meal plans and grocery lists with full CRUD.\n\n**Authentication:** log in by opening `/auth/github` in your browser (GitHub OAuth). The session cookie is then sent automatically, so \"Try it out\" works for protected routes. Without it, protected routes return 401. Users can only change their own data (403 otherwise); admins can change anything."
   },
   "servers": [
@@ -12,6 +12,9 @@
     }
   ],
   "tags": [
+    {
+      "name": "General"
+    },
     {
       "name": "Auth"
     },
@@ -29,6 +32,35 @@
     }
   ],
   "paths": {
+    "/": {
+      "get": {
+        "tags": [
+          "General"
+        ],
+        "summary": "API information",
+        "responses": {
+          "200": {
+            "description": "API name and docs link",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "docs": {
+                      "type": "string",
+                      "example": "/api-docs"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/auth/github": {
       "get": {
         "tags": [
