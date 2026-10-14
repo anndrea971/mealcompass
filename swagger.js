@@ -1,4 +1,3 @@
-// Run with `npm run swagger` to (re)generate swagger.json. Commit the result.
 const fs = require('fs');
 
 const err = (desc) => ({
@@ -163,6 +162,12 @@ const dt = { type: 'string', format: 'date-time' };
 const stamps = { createdAt: dt, updatedAt: dt };
 
 const authPaths = {
+  '/': {
+    get: {
+      tags: ['General'], summary: 'API information',
+      responses: { 200: ok('API name and docs link', { type: 'object', properties: { name: { type: 'string' }, docs: { type: 'string', example: '/api-docs' } } }) }
+    }
+  },
   '/auth/github': {
     get: {
       tags: ['Auth'], summary: 'Log in with GitHub (OAuth 2.0)',
@@ -194,13 +199,13 @@ const spec = {
   openapi: '3.0.3',
   info: {
     title: 'Meal Compass API',
-    version: '2.0.0',
+    version: '3.0.0',
     description: 'REST API for planning weekly meals: users, recipes, meal plans and grocery lists with full CRUD.\n\n' +
       '**Authentication:** log in by opening `/auth/github` in your browser (GitHub OAuth). The session cookie is then sent automatically, so "Try it out" works for protected routes. ' +
       'Without it, protected routes return 401. Users can only change their own data (403 otherwise); admins can change anything.'
   },
   servers: [{ url: '/', description: 'Current host (localhost or Render)' }],
-  tags: [{ name: 'Auth' }, { name: 'Users' }, { name: 'Recipes' }, { name: 'Meal Plans' }, { name: 'Grocery Lists' }],
+  tags: [{ name: 'General' }, { name: 'Auth' }, { name: 'Users' }, { name: 'Recipes' }, { name: 'Meal Plans' }, { name: 'Grocery Lists' }],
   paths: {
     ...authPaths,
     ...crud('Users', 'users', 'user', 'userId', '#/components/schemas/UserInput', '#/components/schemas/User', {
