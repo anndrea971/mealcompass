@@ -10,6 +10,16 @@ describe('auth routes', () => {
     expect(res.status).toBe(200);
     expect(res.body.username).toBe('andrea');
   });
+  test('GET / is 200 and points to the docs', async () => {
+    const res = await api().get('/');
+    expect(res.status).toBe(200);
+    expect(res.body.docs).toBe('/api-docs');
+  });
+  test('GET /auth/logout is 200', async () => {
+    const res = await api().get('/auth/logout');
+    expect(res.status).toBe(200);
+    expect(res.body.message).toBe('Logged out');
+  });
   test('GET /auth/failure is 401', async () => {
     expect((await api().get('/auth/failure')).status).toBe(401);
   });
